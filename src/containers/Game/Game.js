@@ -1,11 +1,12 @@
 import React from 'react'
-import classes from './Game.css'
+import classes from './Game.module.scss'
+import Board from '../../components/Board/Board'
 
 const Game = props => {
 
     return (
         <div className={classes.Game}>
-            Game page
+            <Board />
         </div>
     )
 }
