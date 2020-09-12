@@ -1,5 +1,17 @@
 .Board {
     width: 600px;
     height: 600px;
+    padding: 50px;
     background: no-repeat 100%/100% url('../../images/board.jpg');
 }
+
+.Grid {
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.Grid__row > td {
+    width: 100px;
+    height: 98px;
+}
+
