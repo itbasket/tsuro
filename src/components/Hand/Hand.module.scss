@@ -1,0 +1,10 @@
+.Hand {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-top: 80px;
+}
+
+.Hand > div {
+    border: 2px solid green;
+}

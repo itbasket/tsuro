@@ -1,6 +1,5 @@
 import React from 'react'
 import classes from './Board.module.scss'
-import Tile from '../../components/Tile/Tile'
 
 const Board = props => {
 
