@@ -7,13 +7,13 @@ const Hand = props => {
     return (
         <div className={classes.Hand}>
             <div>
-                <Card />
+                <Card cardId={1} />
             </div>
             <div>
-                <Card />
+                <Card cardId={2} />
             </div>
             <div>
-                <Card />
+                <Card cardId={3} />
             </div>
         </div>
     )
