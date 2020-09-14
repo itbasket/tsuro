@@ -3,13 +3,16 @@ import classes from './Game.module.scss'
 import Board from '../../components/Board/Board'
 import Hand from '../../components/Hand/Hand'
 import { connect } from 'react-redux'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 const Game = props => {
 
     return (
         <div className={classes.Game}>
-            <Board />
-            <Hand />
+            <DragDropContext>
+                <Board />
+                <Hand />
+            </DragDropContext>
         </div>
     )
 }
