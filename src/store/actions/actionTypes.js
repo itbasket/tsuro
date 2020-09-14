@@ -1,0 +1,1 @@
+export const CARD_DRAW = 'CARD_DRAW'
