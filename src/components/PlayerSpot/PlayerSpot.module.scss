@@ -2,8 +2,49 @@ $players: red, blue;
 
 .PlayerSpot {
     position: absolute;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+
+    &.spot1 {
+        left: 15px;
+        top: -20px;
+    } 
+
+    &.spot2 {
+        left: 55px;
+        top: -20px;
+    }
+
+    &.spot3 {
+        left: 85px;
+        top: 15px;
+    }
+
+    &.spot4 {
+        left: 85px;
+        top: 55px;
+    }
+
+    &.spot5 {
+        left: 55px;
+        top: 80px;
+    }
+
+    &.spot6 {
+        left: 15px;
+        top: 80px;
+    }
+
+    &.spot7 {
+        left: -15px;
+        top: 15px;
+    }
+
+    &.spot8 {
+        left: -15px;
+        top: 55px;
+    }
 }
 
 @each $player in $players {
