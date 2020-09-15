@@ -1,0 +1,14 @@
+$players: red, blue;
+
+.PlayerSpot {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+}
+
+@each $player in $players {
+    .player__#{$player} {
+        background: url('../../images/players/Player_#{$player}.png');
+        background-size: contain;
+    }
+}
