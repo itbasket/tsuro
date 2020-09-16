@@ -3,16 +3,17 @@ import classes from './Game.module.scss'
 import Board from '../../components/Board/Board'
 import Hand from '../../components/Hand/Hand'
 import { connect } from 'react-redux'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const Game = props => {
 
     return (
         <div className={classes.Game}>
-            <DragDropContext>
+            <DndProvider backend={HTML5Backend}>
                 <Board />
                 <Hand />
-            </DragDropContext>
+            </DndProvider>
         </div>
     )
 }
