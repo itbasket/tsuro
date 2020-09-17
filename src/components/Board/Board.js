@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import classes from './Board.module.scss'
 import Tile from '../Tile/Tile'
+import { connect } from 'react-redux'
 
 const createBoard = (rowsAmount, colsAmount) => {
     const rows = []
@@ -26,6 +27,13 @@ const Board = props => {
         setRows(createBoard(6, 6))
     }, [])
 
+    const isOccupied = id => {
+        const result = props.occupiedTiles.find(item => {
+            return item.tile === id
+        });
+        return result
+    }
+
     return (
         <div className={classes.Board}>
             <table className={classes.Grid}>
@@ -35,7 +43,7 @@ const Board = props => {
                             <tr className={classes.Grid__row} key={index}>
                                 {row.tiles.map(tile => {
                                     return (
-                                        <Tile id={tile.id} key={tile.id} />
+                                        <Tile id={tile.id} key={tile.id} occupied={isOccupied(tile.id)} />
                                     )
                                 }) }
                             </tr>
@@ -48,4 +56,16 @@ const Board = props => {
     )
 }
 
-export default Board
+function mapStateToProps(state) {
+    return {
+        occupiedTiles: state.game.occupiedTiles
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board)

@@ -1,4 +1,4 @@
-import { CARD_DRAW } from '../actions/actionTypes'
+import { CARD_DRAW, OCCUPIE_TILE } from '../actions/actionTypes'
 
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -7,7 +7,8 @@ function shuffle(array) {
 const initialState = {
     deck: shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]),
     hand: [],
-    playersPositions: [{id: 1, color: 'red', coordinates: {tile: 11, spot: 7}}, {id: 2, color: 'blue', coordinates: {tile: 11, spot: 8}}]
+    playersPositions: [{id: 1, color: 'red', coordinates: {tile: 11, spot: 7}}, {id: 2, color: 'blue', coordinates: {tile: 11, spot: 8}}],
+    occupiedTiles: [{tile: 11, card: 23}]
 }
 
 export default function gameReducer(state = initialState, action) {
@@ -15,6 +16,10 @@ export default function gameReducer(state = initialState, action) {
         case CARD_DRAW:
             return {
                 ...state, hand: state.deck.splice(0, action.amount)
+            }
+        case OCCUPIE_TILE:
+            return {
+                ...state, occupiedTiles: state.occupiedTiles.concat(action.payload)
             }
         default:
             return state

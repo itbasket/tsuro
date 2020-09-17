@@ -6,7 +6,7 @@ const Card = props => {
     const cls = [classes.Card, classes[`card${props.cardId}`]]
 
     const [{isDragging}, drag] = useDrag({
-        item: { type: 'card' },
+        item: { type: 'card', id: props.cardId },
         collect: monitor => ({
           isDragging: !!monitor.isDragging(),
         }),
