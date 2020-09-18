@@ -30,8 +30,16 @@ const Board = props => {
     const isOccupied = id => {
         const result = props.occupiedTiles.find(item => {
             return item.tile === id
-        });
+        })
         return result
+    }
+
+    const isDroppable = (id) => {
+        const isPlayerHere = props.playersPositions.find(player => {
+            return player.id === props.playerId && player.coordinates.tile === id
+        })
+        console.log(!!isPlayerHere)
+        return !!isPlayerHere
     }
 
     return (
@@ -43,7 +51,7 @@ const Board = props => {
                             <tr className={classes.Grid__row} key={index}>
                                 {row.tiles.map(tile => {
                                     return (
-                                        <Tile id={tile.id} key={tile.id} occupied={isOccupied(tile.id)} />
+                                        <Tile id={tile.id} key={tile.id} occupied={isOccupied(tile.id)} isDroppable={isDroppable(tile.id)} />
                                     )
                                 }) }
                             </tr>
@@ -58,6 +66,8 @@ const Board = props => {
 
 function mapStateToProps(state) {
     return {
+        playerId: state.game.playerId,
+        playersPositions: state.game.playersPositions,
         occupiedTiles: state.game.occupiedTiles
     }
 }

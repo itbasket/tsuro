@@ -11,6 +11,7 @@ const Tile = props => {
     const [{ isOver }, drop] = useDrop({
         accept: 'card',
         drop: (item) => props.occupieTile(props.id, item.id),
+        canDrop: () => !props.occupied && props.isDroppable,
         collect: monitor => ({
           isOver: !!monitor.isOver(),
         }),
@@ -32,7 +33,7 @@ const Tile = props => {
                         width: '100%',
                         zIndex: 1,
                         opacity: 0.5,
-                        backgroundColor: 'yellow',
+                        backgroundColor: props.isDroppable ? 'green' : 'yellow',
                     }}
                 />
             )}
@@ -42,6 +43,7 @@ const Tile = props => {
 
 function mapStateToProps(state) {
     return {
+        playerId: state.game.playerId,
         playersPositions: state.game.playersPositions
     }
 }
