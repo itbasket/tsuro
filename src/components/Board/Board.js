@@ -38,7 +38,6 @@ const Board = props => {
         const isPlayerHere = props.playersPositions.find(player => {
             return player.id === props.playerId && player.coordinates.tile === id
         })
-        console.log(!!isPlayerHere)
         return !!isPlayerHere
     }
 

@@ -10,7 +10,7 @@ const Tile = props => {
 
     const [{ isOver }, drop] = useDrop({
         accept: 'card',
-        drop: (item) => props.occupieTile(props.id, item.id),
+        drop: (item) => props.occupieTile(props.id, item.id, item.position),
         canDrop: () => !props.occupied && props.isDroppable,
         collect: monitor => ({
           isOver: !!monitor.isOver(),
@@ -19,7 +19,7 @@ const Tile = props => {
 
     return (
         <td className={classes.Tile} ref={drop}>
-            {props.occupied ? <Card cardId={props.occupied.card} /> : null}
+            {props.occupied ? <Card card={props.occupied.card} position={{type: 'tile', id: props.id}} isDraggable={!props.occupied.isPermanent} /> : null}
             {props.playersPositions.map(player => {
                 return player.coordinates.tile === props.id ? <PlayerSpot color={player.color} spot={player.coordinates.spot} key={player.id} /> : null
             })}
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        occupieTile: (tile, card) => dispatch(occupieTile(tile, card))
+        occupieTile: (tile, card, position) => dispatch(occupieTile(tile, card, position))
     }
 }
 

@@ -4,24 +4,24 @@ import Card from '../Card/Card'
 import { connect } from 'react-redux'
 import { cardDraw } from '../../store/actions/game'
 
-
 const Hand = props => {
 
     useEffect(() => {
-        props.cardDraw(3)
+        props.cardDraw('card1')
+        props.cardDraw('card2')
+        props.cardDraw('card3')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <div className={classes.Hand}>
-            <div>
-                <Card cardId={props.hand[0]} />
-            </div>
-            <div>
-                <Card cardId={props.hand[1]} />
-            </div>
-            <div>
-                <Card cardId={props.hand[2]} />
-            </div>
+            {Object.keys(props.hand).map((cardId, index) => {
+                return (
+                    <div key={index + 1}>
+                        <Card card={props.hand[cardId]} deck={props.deck} position={{type: 'hand', id: 1}} isDraggable={true} />
+                    </div>
+                )
+            })}
         </div>
     )
 }
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        cardDraw: amount => dispatch(cardDraw(amount))
+        cardDraw: handSlot => dispatch(cardDraw(handSlot))
     }
 }
 

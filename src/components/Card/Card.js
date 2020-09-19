@@ -3,10 +3,11 @@ import classes from './Card.module.scss'
 import { useDrag } from 'react-dnd'
 
 const Card = props => {
-    const cls = [classes.Card, classes[`card${props.cardId}`]]
+    const cls = [classes.Card, classes[`card${props.card}`]]
 
     const [{isDragging}, drag] = useDrag({
-        item: { type: 'card', id: props.cardId },
+        item: { type: 'card', id: props.card, position: props.position },
+        canDrag: () => props.isDraggable,
         collect: monitor => ({
           isDragging: !!monitor.isDragging(),
         }),
