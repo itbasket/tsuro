@@ -18,7 +18,7 @@ const Hand = props => {
             {Object.keys(props.hand).map((cardId, index) => {
                 return (
                     <div key={index + 1}>
-                        <Card card={props.hand[cardId]} deck={props.deck} position={{type: 'hand', id: 1}} isDraggable={true} />
+                        <Card id={props.hand[cardId]} deck={props.deck} position={{type: 'hand', id: index + 1, rotateDeg: 0}} isDraggable={true} />
                     </div>
                 )
             })}

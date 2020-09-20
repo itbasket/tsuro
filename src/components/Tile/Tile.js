@@ -19,7 +19,7 @@ const Tile = props => {
 
     return (
         <td className={classes.Tile} ref={drop}>
-            {props.occupied ? <Card card={props.occupied.card} position={{type: 'tile', id: props.id}} isDraggable={!props.occupied.isPermanent} /> : null}
+            {props.occupied ? <Card id={props.occupied.card} position={{type: 'tile', id: props.id, rotateDeg: props.occupied.rotateDeg}} isDraggable={!props.occupied.isPermanent} /> : null}
             {props.playersPositions.map(player => {
                 return player.coordinates.tile === props.id ? <PlayerSpot color={player.color} spot={player.coordinates.spot} key={player.id} /> : null
             })}

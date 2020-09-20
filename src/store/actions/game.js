@@ -36,7 +36,7 @@ export function occupieTile(tile, card, position) {
 
         handState[`card${position.id}`] = null
 
-        occupiedTilesState = occupiedTilesState.concat({tile, card, isPermanent: false})
+        occupiedTilesState = occupiedTilesState.concat({tile, card, rotateDeg: position.rotateDeg, isPermanent: false})
         
         dispatch(occupieTileSuccess(handState, occupiedTilesState))
     }
