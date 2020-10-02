@@ -4,7 +4,8 @@ import { useDrop } from 'react-dnd'
 import classes from './Tile.module.scss'
 import Card from '../Card/Card'
 import PlayerSpot from '../PlayerSpot/PlayerSpot'
-import { occupieTile } from '../../store/actions/game'
+import Confirm from './Confirm/Confirm'
+import { occupieTile, occupieConfirm } from '../../store/actions/game'
 
 const Tile = props => {
 
@@ -15,11 +16,19 @@ const Tile = props => {
         collect: monitor => ({
           isOver: !!monitor.isOver(),
         }),
-      })
+    })
+
+    const onAccept = () => {
+        props.occupieConfirm(props.id)
+    }
+
+    const onCancel = () => {
+        
+    }
 
     return (
         <td className={classes.Tile} ref={drop}>
-            {props.occupied ? <Card id={props.occupied.card} position={{type: 'tile', id: props.id, rotateDeg: props.occupied.rotateDeg}} isDraggable={!props.occupied.isPermanent} /> : null}
+            {props.occupied ? <Card id={props.occupied.card} position={{type: 'tile', id: props.id, rotateDeg: props.occupied.rotateDeg}} isDraggable={false} /> : null}
             {props.playersPositions.map(player => {
                 return player.coordinates.tile === props.id ? <PlayerSpot color={player.color} spot={player.coordinates.spot} key={player.id} /> : null
             })}
@@ -37,6 +46,7 @@ const Tile = props => {
                     }}
                 />
             )}
+            {props.occupied && !props.occupied.isPermanent ? <Confirm tileId={props.id} onAccept={onAccept} onCancel={onCancel} /> : null}
         </td>
     )
 }
@@ -50,7 +60,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        occupieTile: (tile, card, position) => dispatch(occupieTile(tile, card, position))
+        occupieTile: (tile, card, position) => dispatch(occupieTile(tile, card, position)),
+        occupieConfirm: (tileId) => dispatch(occupieConfirm(tileId))
     }
 }
 

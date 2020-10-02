@@ -1,4 +1,4 @@
-import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS } from '../actions/actionTypes'
+import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS, OCCUPIE_CONFIRM_SUCCESS } from '../actions/actionTypes'
 
 export function cardDrawSuccess(handState, deckState) {
     return {
@@ -11,6 +11,13 @@ export function occupieTileSuccess(handState, occupiedTilesState) {
     return {
         type: OCCUPIE_TILE_SUCCESS,
         payload: {handState, occupiedTilesState}
+    }
+}
+
+export function occupieConfirmSuccess(occupiedTilesState) {
+    return {
+        type: OCCUPIE_CONFIRM_SUCCESS,
+        payload: {occupiedTilesState}
     }
 }
 
@@ -32,7 +39,7 @@ export function occupieTile(tile, card, position) {
         const state = getState().game
 
         const handState = {...state.hand}
-        let occupiedTilesState = []
+        let occupiedTilesState = [...state.occupiedTiles]
 
         handState[`card${position.id}`] = null
 
@@ -40,5 +47,19 @@ export function occupieTile(tile, card, position) {
         
         dispatch(occupieTileSuccess(handState, occupiedTilesState))
     }
-    
+}
+
+export function occupieConfirm(tileId) {
+    return (dispatch, getState) => {
+        const state = getState().game
+
+        const occupiedTilesState = [...state.occupiedTiles]
+        const newOccupiedTilesState = occupiedTilesState.map((item) => {
+            if (item.tile === tileId) {
+                item.isPermanent = true
+            }
+            return {...item}
+        })
+        dispatch(occupieConfirmSuccess(newOccupiedTilesState))
+    }
 }

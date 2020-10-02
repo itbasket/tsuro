@@ -1,0 +1,28 @@
+.Confirm {
+    position: absolute;
+    top: 105px;
+    left: 20px;
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 99;
+
+    div {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        opacity: .8;
+    }
+
+    div:hover {
+        opacity: 1;
+    }
+}
+
+.accept {
+    background: no-repeat 100%/100% url('../../../images/icons/accept.png');
+}
+
+.cancel {
+    background: no-repeat 100%/100% url('../../../images/icons/cancel.png');
+}

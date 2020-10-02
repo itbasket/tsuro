@@ -1,4 +1,4 @@
-import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS } from '../actions/actionTypes'
+import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS, OCCUPIE_CONFIRM_SUCCESS } from '../actions/actionTypes'
 
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -21,6 +21,10 @@ export default function gameReducer(state = initialState, action) {
         case OCCUPIE_TILE_SUCCESS:
             return {
                 ...state, hand: action.payload.handState, occupiedTiles: action.payload.occupiedTilesState
+            }
+        case OCCUPIE_CONFIRM_SUCCESS:
+            return {
+                ...state, occupiedTiles: action.payload.occupiedTilesState
             }
         default:
             return state
