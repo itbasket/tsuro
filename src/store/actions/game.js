@@ -1,4 +1,4 @@
-import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS, OCCUPIE_CONFIRM_SUCCESS } from '../actions/actionTypes'
+import { CARD_DRAW_SUCCESS, OCCUPIE_TILE_SUCCESS, OCCUPIE_CONFIRM_SUCCESS, OCCUPIE_CANCEL_SUCCESS } from '../actions/actionTypes'
 
 export function cardDrawSuccess(handState, deckState) {
     return {
@@ -18,6 +18,13 @@ export function occupieConfirmSuccess(occupiedTilesState) {
     return {
         type: OCCUPIE_CONFIRM_SUCCESS,
         payload: {occupiedTilesState}
+    }
+}
+
+export function occupieCancelSuccess(occupiedTilesState, handState) {
+    return {
+        type: OCCUPIE_CANCEL_SUCCESS,
+        payload: {occupiedTilesState, handState}
     }
 }
 
@@ -43,7 +50,7 @@ export function occupieTile(tile, card, position) {
 
         handState[`card${position.id}`] = null
 
-        occupiedTilesState = occupiedTilesState.concat({tile, card, rotateDeg: position.rotateDeg, isPermanent: false})
+        occupiedTilesState = occupiedTilesState.concat({tile, card, rotateDeg: position.rotateDeg, originalHandSlot: `card${position.id}`, isPermanent: false})
         
         dispatch(occupieTileSuccess(handState, occupiedTilesState))
     }
@@ -61,5 +68,21 @@ export function occupieConfirm(tileId) {
             return {...item}
         })
         dispatch(occupieConfirmSuccess(newOccupiedTilesState))
+    }
+}
+
+export function occupieCancel(tileId, originalHandSlot, cardId) {
+    return (dispatch, getState) => {
+        const state = getState().game
+
+        const occupiedTilesState = [...state.occupiedTiles]
+        const newOccupiedTilesState = occupiedTilesState.filter((item) => {
+            return item.tile !== tileId
+        })
+
+        const handState = {...state.hand}
+        handState[originalHandSlot] = cardId
+
+        dispatch(occupieCancelSuccess(newOccupiedTilesState, handState))
     }
 }

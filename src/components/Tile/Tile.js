@@ -5,7 +5,7 @@ import classes from './Tile.module.scss'
 import Card from '../Card/Card'
 import PlayerSpot from '../PlayerSpot/PlayerSpot'
 import Confirm from './Confirm/Confirm'
-import { occupieTile, occupieConfirm } from '../../store/actions/game'
+import { occupieTile, occupieConfirm, occupieCancel } from '../../store/actions/game'
 
 const Tile = props => {
 
@@ -23,12 +23,12 @@ const Tile = props => {
     }
 
     const onCancel = () => {
-        
+        props.occupieCancel(props.id, props.occupied.originalHandSlot, props.occupied.card)
     }
 
     return (
         <td className={classes.Tile} ref={drop}>
-            {props.occupied ? <Card id={props.occupied.card} position={{type: 'tile', id: props.id, rotateDeg: props.occupied.rotateDeg}} isDraggable={false} /> : null}
+            {props.occupied ? <Card id={props.occupied.card} position={{type: 'tile', id: props.id, rotateDeg: props.occupied.rotateDeg, originalHandSlot: props.occupied.originalHandSlot}} isDraggable={false} /> : null}
             {props.playersPositions.map(player => {
                 return player.coordinates.tile === props.id ? <PlayerSpot color={player.color} spot={player.coordinates.spot} key={player.id} /> : null
             })}
@@ -61,7 +61,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         occupieTile: (tile, card, position) => dispatch(occupieTile(tile, card, position)),
-        occupieConfirm: (tileId) => dispatch(occupieConfirm(tileId))
+        occupieConfirm: (tileId) => dispatch(occupieConfirm(tileId)),
+        occupieCancel: (tileId, originalHandSlot, cardId) => dispatch(occupieCancel(tileId, originalHandSlot, cardId))
     }
 }
 
