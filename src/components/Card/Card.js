@@ -27,7 +27,7 @@ const Card = props => {
     
 
     return (
-        <div className={cls.join(' ')} ref={drag} style={{opacity: isDragging ? 0.5 : 1, transform: `rotate(${rotateDeg}deg)`}} onClick={() => rotate()}>
+        <div className={cls.join(' ')} ref={drag} style={{opacity: isDragging ? 0.5 : 1, transform: `rotate(${rotateDeg}deg)`}} onClick={props.isRotatable ? () => rotate() : null}>
             
         </div>
     )
