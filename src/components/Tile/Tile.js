@@ -19,7 +19,7 @@ const Tile = props => {
     })
 
     const onAccept = () => {
-        props.occupieConfirm(props.id)
+        props.occupieConfirm(props.id, props.occupied.originalHandSlot)
     }
 
     const onCancel = () => {
@@ -61,7 +61,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         occupieTile: (tile, card, position) => dispatch(occupieTile(tile, card, position)),
-        occupieConfirm: (tileId) => dispatch(occupieConfirm(tileId)),
+        occupieConfirm: (tileId, originalHandSlot) => dispatch(occupieConfirm(tileId, originalHandSlot)),
         occupieCancel: (tileId, originalHandSlot, cardId) => dispatch(occupieCancel(tileId, originalHandSlot, cardId))
     }
 }

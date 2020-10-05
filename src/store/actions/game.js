@@ -56,7 +56,7 @@ export function occupieTile(tile, card, position) {
     }
 }
 
-export function occupieConfirm(tileId) {
+export function occupieConfirm(tileId, originalHandSlot) {
     return (dispatch, getState) => {
         const state = getState().game
 
@@ -68,6 +68,7 @@ export function occupieConfirm(tileId) {
             return {...item}
         })
         dispatch(occupieConfirmSuccess(newOccupiedTilesState))
+        dispatch(cardDraw(originalHandSlot))
     }
 }
 
